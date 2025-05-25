@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
@@ -18,11 +19,13 @@ import io.jsonwebtoken.security.Keys;
 // ChatGpt : Write jwt helper class for jwt authentication
 @Component
 public class JwtHelper {
-	// private static final Key SECRET_KEY =
-	// Keys.secretKeyFor(SignatureAlgorithm.HS256);
+	private Key SECRET_KEY;
 
-	private static final String SECRET = "MySuperSecretKeyForJWTThatIsAtLeast32Bytes!"; // Must be 32+ characters
-	private static final Key SECRET_KEY = Keys.hmacShaKeyFor(SECRET.getBytes(StandardCharsets.UTF_8));
+	@Value("${jwt.secret}")
+	public void setSecret(String secret) {
+		// Initialize the Key when the secret is injected
+		this.SECRET_KEY = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
+	}
 
 	private static final long JWT_TOKEN_VALIDITY = 3600000;
 
