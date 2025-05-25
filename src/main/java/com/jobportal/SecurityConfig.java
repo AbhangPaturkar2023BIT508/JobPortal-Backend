@@ -85,9 +85,8 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowedOrigins(List.of(
-                "http://localhost:3000" // ✅ Add your frontend URL(s) here
-        // Add more frontend URLs like "https://your-frontend.onrender.com" if needed
-        ));
+                "http://localhost:3000", // ✅ Add your frontend URL(s) here
+                "https://jobportal-frontend-dhw0.onrender.com"));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS")); // ✅ Include OPTIONS for preflight
         config.setAllowedHeaders(List.of("Authorization", "Content-Type")); // ✅ Required for auth and JSON
         config.setAllowCredentials(true); // ✅ Needed if you send cookies or auth tokens
